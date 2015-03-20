@@ -5,9 +5,14 @@
 ** Login   <terran_j@epitech.net>
 **
 ** Started on  Fri Mar 20 21:05:57 2015 Julie Terranova
-** Last update Fri Mar 20 22:22:30 2015 Julie Terranova
+** Last update Fri Mar 20 22:46:38 2015 Julie Terranova
 */
 
+#include <inttypes.h>
+#include <stdlib.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
 #include <stdio.h>
 #include <string.h>
 #include "elcrypt.h"
@@ -39,13 +44,14 @@ int	crypt(char **av, elc opt)
 	return (printf("-o already declared\n"));
       if ((mask & 4) == 0 && strcmp("-k", av[i]) == 0)
 	{
-	  opt.key = strtoll(av[i + 1], NULL, 10);
+	  sscanf(av[i + 1], "%"SCNd64, &(opt.key));
 	  mask = mask & 4;
 	}
       else if ((mask & 4) == 1)
 	return (printf("-k already declared\n"));
       i++;
     }
+  elcrypt(&opt, opt.mode);
   return (0);
 }
 
