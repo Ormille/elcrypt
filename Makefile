@@ -1,11 +1,11 @@
 ##
-## Makefile for myftp in /home/terran_j/rendu/PSU_2014_myftp
+## Makefile for elcrypt in /home/terran_j/rendu/elcrypt
 ##
 ## Made by Julie Terranova
 ## Login   <terran_j@epitech.net>
 ##
-## Started on  Mon Mar  9 15:02:17 2015 Julie Terranova
-## Last update Fri Mar 20 20:38:25 2015 Julie Terranova
+## Started on  Fri Mar 20 20:46:16 2015 Julie Terranova
+## Last update Fri Mar 20 20:46:19 2015 Julie Terranova
 ##
 
 NAME1	= serveur

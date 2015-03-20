@@ -1,11 +1,11 @@
 /*
-** main.c for client in /home/terran_j/rendu/PSU_2014_myftp/client
+** main.c for elcrypt in /home/terran_j/rendu/elcrypt/clients
 **
 ** Made by Julie Terranova
 ** Login   <terran_j@epitech.net>
 **
-** Started on  Mon Mar  9 15:17:51 2015 Julie Terranova
-** Last update Fri Mar 20 20:39:24 2015 Julie Terranova
+** Started on  Fri Mar 20 20:45:43 2015 Julie Terranova
+** Last update Fri Mar 20 20:45:45 2015 Julie Terranova
 */
 
 #include "client.h"
