@@ -5,7 +5,7 @@
 ** Login   <terran_j@epitech.net>
 **
 ** Started on  Fri Mar 20 21:06:36 2015 Julie Terranova
-** Last update Fri Mar 20 22:35:57 2015 Julie Terranova
+** Last update Fri Mar 20 22:40:49 2015 moran-_d
 */
 
 #ifndef ELCRYPT_H_
@@ -38,13 +38,7 @@ int crypt(char **av, elc opt);
 /* Parse */
 elc *parse_args(char **argv); /* for each arg check if -X */
 
-/* Init */
-elc *init_elcrypt(char *input, char *output, int mode, int64_t key);
-
 /* Elcrypt */
-/* int encrypt(elc *elc); call elcrypt with turn = 0 */
-/* int decrypt(elc *elc); call elcrypt with turn = 8 */
-
 int elcrypt(elc *elc, int turn); /* for each block, do feistel */
 int64_t add_padding(char *buf, int len);
 
