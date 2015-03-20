@@ -5,10 +5,11 @@
 ** Login   <terran_j@epitech.net>
 **
 ** Started on  Fri Mar 20 21:05:57 2015 Julie Terranova
-** Last update Fri Mar 20 22:15:09 2015 Julie Terranova
+** Last update Fri Mar 20 22:22:30 2015 Julie Terranova
 */
 
 #include <stdio.h>
+#include <string.h>
 #include "elcrypt.h"
 
 int	crypt(char **av, elc opt)
@@ -68,7 +69,7 @@ void	verify_arguments(char **av)
 	  crypt(av, opt);
 	  break;
 	}
-      a++;
+      i++;
     }
 }
 
@@ -76,6 +77,7 @@ int	main(int ac, char **av)
 {
   if (ac == 9)
     verify_arguments(av);
-  printf("Usage: ./elcrypt [-d | -e] [-f src_file] [-o dest_file] [-k key]\n");
+  else
+    printf("Usage: ./elcrypt [-d | -e] [-f src_file] [-o dest_file] [-k key]\n");
   return (0);
 }
