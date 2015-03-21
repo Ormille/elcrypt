@@ -1,11 +1,11 @@
 /*
 ** feistel.c for feistel in /home/moran-_d/rendu/elcrypt/etape_1/src
-** 
+**
 ** Made by moran-_d
 ** Login   <moran-_d@epitech.net>
-** 
+**
 ** Started on  Fri Mar 20 22:22:03 2015 moran-_d
-** Last update Sat Mar 21 19:38:05 2015 moran-_d
+** Last update Sat Mar 21 20:04:59 2015 moran-_d
 */
 
 #include <inttypes.h>
@@ -18,7 +18,7 @@
 uint32_t feistel_key(uint64_t key, uint32_t block, int turn)
 {
   uint64_t second;
-  
+
   second = key;
   while (turn > 0)
     {
@@ -27,7 +27,6 @@ uint32_t feistel_key(uint64_t key, uint32_t block, int turn)
       second = second & 0x00FFFFFFFFFFFFFF;
       --turn;
     }
-  /*  printf("sec = %"PRIu32"\n", (uint32_t)second ^ block); */
   return (((uint32_t)second) ^ block);
 }
 
