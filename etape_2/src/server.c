@@ -5,7 +5,7 @@
 ** Login   <terran_j@epitech.net>
 **
 ** Started on  Sat Mar 21 19:47:59 2015 Julie Terranova
-** Last update Sat Mar 21 20:57:48 2015 Julie Terranova
+** Last update Sat Mar 21 21:27:50 2015 Julie Terranova
 */
 
 #include "elnetcat.h"
@@ -14,12 +14,15 @@ void	read_on_term(t_server *server, int cd)
 {
   char str[4096];
 
-  memset(str, 0, 4096);
-  if (read(cd, str, 4095) > 0)
+  while (server->is_running == 1)
     {
-      /* diego_func(server); */
-      write(cd, str, 4095);
-      server = server;
+      memset(str, 0, 4096);
+      if (read(cd, str, 4095) > 0)
+	{
+	  /* diego_func(server); */
+	  write(0, str, 4095);
+	  server = server;
+	}
     }
 }
 
