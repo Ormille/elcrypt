@@ -5,22 +5,42 @@
 ** Login   <moran-_d@epitech.net>
 ** 
 ** Started on  Fri Mar 20 22:22:03 2015 moran-_d
-** Last update Fri Mar 20 22:41:50 2015 moran-_d
+** Last update Sat Mar 21 10:16:51 2015 moran-_d
 */
 
+#include <string.h>
+#include <unistd.h>
+#include <stdlib.h>
 #include "elcrypt.h"
 
-int64_t feistel(elc *elc, char *block, int turn)
+uint32_t feistel_key(uint64_t key, uint32_t block, int turn)
 {
-  int32_t left;
-  int32_t right;
-  int32_t tmp;
+  key = key;
+  block = block;
+  turn = turn;
+  return (0);
+}
+
+uint64_t feistel(elc *elc, uint64_t block, int turn)
+{
+  uint32_t left;
+  uint32_t right;
+  uint32_t tmp;
+  int t;
   int i;
 
   i = -1;
-  
+  left = block >> 32;
+  right = block;
   while (++i < TURNS)
     {
-      
+      t = abs(turn - i);
+      tmp = feistel_key(elc->key, right, t);
+      tmp = tmp ^ left;
+      left = right;
+      right = tmp;
     }
+  block = left;
+  block = (block << 32) + right;
+  return (block);
 }

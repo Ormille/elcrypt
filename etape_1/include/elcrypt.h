@@ -5,7 +5,7 @@
 ** Login   <terran_j@epitech.net>
 **
 ** Started on  Fri Mar 20 21:06:36 2015 Julie Terranova
-** Last update Fri Mar 20 22:40:49 2015 moran-_d
+** Last update Sat Mar 21 10:34:29 2015 moran-_d
 */
 
 #ifndef ELCRYPT_H_
@@ -16,10 +16,13 @@
 #define BLOCK	(64)
 #define HBLOCK	(BLOCK / 2)
 #define BBLOCK	(BLOCK / 8)
+#define HBBLOCK	(BBLOCK / 2)
 #define TURNS	(8)
 
 #define ENCRYPT	(0)
-#define DECRYPT	(TURNS)
+#define DECRYPT	(TURNS - 1)
+
+#define to_uint64(buffer) (*(uint64_t*)buffer)
 
 typedef struct elc_s elc;
 
@@ -38,13 +41,17 @@ int crypt(char **av, elc opt);
 /* Parse */
 elc *parse_args(char **argv); /* for each arg check if -X */
 
+/* Block */
+uint64_t construct_block(unsigned char *buf);
+void deconstruct_block(uint64_t block, unsigned char *buf);
+
 /* Elcrypt */
 int elcrypt(elc *elc, int turn); /* for each block, do feistel */
-int64_t add_padding(char *buf, int len);
+uint64_t add_padding(unsigned char *buf, int len);
 
 /* Feistel */
-int64_t feistel(elc *elc, char *block, int turn);	/* while i < TURNS do feistel */
-							/* return block */
-int32_t feistel_key(int64_t key, int turn);		/* get secondary key */
+uint64_t feistel(elc *elc, uint64_t block, int turn);	/* while i < TURNS do feistel */
+								/* return block */
+uint32_t feistel_key(uint64_t key, uint32_t block, int turn);	/* get secondary key */
 
 #endif

@@ -5,13 +5,15 @@
 ## Login   <terran_j@epitech.net>
 ##
 ## Started on  Fri Mar 20 20:46:16 2015 Julie Terranova
-## Last update Fri Mar 20 22:47:06 2015 Julie Terranova
+## Last update Sat Mar 21 10:24:39 2015 moran-_d
 ##
 
 NAME	= elcrypt
 
 SRC	= src/main.c \
+	src/block.c \
 	src/elcrypt.c \
+	src/feistel.c \
 
 OBJ	= $(SRC:.c=.o)
 
