@@ -5,7 +5,7 @@
 ** Login   <moran-_d@epitech.net>
 **
 ** Started on  Fri Mar 20 22:06:10 2015 moran-_d
-** Last update Sat Mar 21 19:54:54 2015 moran-_d
+** Last update Sat Mar 21 21:53:14 2015 moran-_d
 */
 
 #include <inttypes.h>
@@ -56,7 +56,7 @@ int encrypt(elc *elc, int turn)
       memset(buf, 0, BBLOCK);
     }
   if (len < 0)
-    return (printf("Error during reading\n"));
+    return (printf("Error during reading\n") - 5);
   len = add_padding(buf, 8 - len);
   block = construct_block(buf);
   block = feistel_enc(elc, block, turn);

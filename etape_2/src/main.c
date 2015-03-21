@@ -5,7 +5,7 @@
 ** Login   <terran_j@epitech.net>
 **
 ** Started on  Fri Mar 20 21:05:57 2015 Julie Terranova
-** Last update Sat Mar 21 20:50:07 2015 Julie Terranova
+** Last update Sat Mar 21 21:58:17 2015 moran-_d
 */
 
 #include "elnetcat.h"
@@ -63,7 +63,7 @@ int	server(char **av)
     }
   if (mask != 3)
     return (printf("Server: Syntax error\n"));
-  init_server(server);
+  init_server(&server);
   return (0);
 }
 
@@ -92,7 +92,7 @@ int	client(char **av)
     }
   if (mask != 3)
     return (printf("Client: Syntax error\n"));
-  init_client(client);
+  init_client(&client);
   return (0);
 }
 

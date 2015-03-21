@@ -5,29 +5,33 @@
 ** Login   <terran_j@epitech.net>
 **
 ** Started on  Sat Mar 21 19:48:53 2015 Julie Terranova
-** Last update Sat Mar 21 21:19:00 2015 Julie Terranova
+** Last update Sun Mar 22 00:19:55 2015 moran-_d
 */
 
 #include "elnetcat.h"
 
-void	continue_client(t_client client, int sd)
+void	continue_client(t_client *client, int sd)
 {
-  char str[4096];
+  char buf[4096];
+  elc elc;
+  int len;
 
-  client.is_running = 1;
-  while (client.is_running == 1)
+  elc.mode = ENCRYPT;
+  elc.skey = parity_bits_key(client->key);
+  elc.fin = 0;
+  elc.fout = sd;
+  client->is_running = 1;
+  while (client->is_running == 1)
     {
-      memset(str, 0, 4096);
-      if ((read(0, str, 4095)) > 0)
-	{
-	  write(sd, str, 4095);
-	  /* diego_func(&client); */
-	  client = client;
-	}
+      if ((len = read(elc.fin, buf, 4096)) > 0)
+        {
+          if (encrypt(&elc, buf, elc.mode, len) < 0)
+            return;
+        }
     }
 }
 
-int    init_client(t_client client)
+int    init_client(t_client *client)
 {
   int   sd;
   struct sockaddr_in sin;
@@ -37,8 +41,8 @@ int    init_client(t_client client)
   if ((sd = socket(AF_INET, SOCK_STREAM, pe->p_proto)) == -1)
     return (printf("Socket error\n"));
   sin.sin_family = AF_INET;
-  sin.sin_port = htons(client.port);
-  sin.sin_addr.s_addr = inet_addr(client.host);
+  sin.sin_port = htons(client->port);
+  sin.sin_addr.s_addr = inet_addr(client->host);
   if ((connect(sd, (const struct sockaddr *)&sin, sizeof(sin))) == -1)
     {
       close(sd);

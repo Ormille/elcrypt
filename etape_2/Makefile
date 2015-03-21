@@ -5,13 +5,15 @@
 ## Login   <terran_j@epitech.net>
 ##
 ## Started on  Fri Mar 20 20:46:16 2015 Julie Terranova
-## Last update Sat Mar 21 20:49:03 2015 Julie Terranova
+## Last update Sat Mar 21 22:00:46 2015 moran-_d
 ##
 
 NAME	= elnetcat
 
 SRC	= src/main.c \
 	src/parsing.c \
+	src/block.c \
+	src/elcrypt.c \
 	src/server.c \
 	src/client.c \
 

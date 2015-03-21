@@ -5,7 +5,7 @@
 ** Login   <terran_j@epitech.net>
 **
 ** Started on  Sat Mar 21 19:50:17 2015 Julie Terranova
-** Last update Sat Mar 21 19:51:39 2015 Julie Terranova
+** Last update Sat Mar 21 22:03:48 2015 moran-_d
 */
 
 #include "elnetcat.h"
@@ -82,16 +82,4 @@ int is_decimal(char *nb)
       i++;
     }
   return (0);
-}
-
-uint64_t construct_block(unsigned char *buf)
-{
-  uint64_t block;
-  int i;
-
-  block = 0;
-  i = -1;
-  while (++i < BBLOCK)
-    block = (block << 8) + buf[i];
-  return (block);
 }
