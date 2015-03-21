@@ -5,7 +5,7 @@
 ** Login   <moran-_d@epitech.net>
 ** 
 ** Started on  Sat Mar 21 21:53:44 2015 moran-_d
-** Last update Sun Mar 22 00:33:35 2015 moran-_d
+** Last update Sun Mar 22 00:40:29 2015 moran-_d
 */
 
 #include "elnetcat.h"
@@ -58,7 +58,7 @@ uint64_t feistel_dec(elc *elc, uint64_t block, int turn)
   int i;
 
   i = -1;
-  left = (uint32_t)block >> 32;
+  left = (uint32_t)(block >> 32);
   right = (uint32_t)block;
   while (++i < TURNS)
     {
