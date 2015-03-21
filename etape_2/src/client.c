@@ -5,7 +5,7 @@
 ** Login   <terran_j@epitech.net>
 **
 ** Started on  Sat Mar 21 19:48:53 2015 Julie Terranova
-** Last update Sat Mar 21 21:08:24 2015 Julie Terranova
+** Last update Sat Mar 21 21:19:00 2015 Julie Terranova
 */
 
 #include "elnetcat.h"
@@ -17,13 +17,12 @@ void	continue_client(t_client client, int sd)
   client.is_running = 1;
   while (client.is_running == 1)
     {
-      write(0, "Client_prompt_>>> ", strlen("Client_prompt_>>> "));
       memset(str, 0, 4096);
-      if ((read(sd, str, 4095)) > 0)
+      if ((read(0, str, 4095)) > 0)
 	{
+	  write(sd, str, 4095);
 	  /* diego_func(&client); */
 	  client = client;
-	  printf("%s\n", str);
 	}
     }
 }
