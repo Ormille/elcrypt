@@ -5,9 +5,10 @@
 ** Login   <moran-_d@epitech.net>
 **
 ** Started on  Fri Mar 20 22:06:10 2015 moran-_d
-** Last update Sat Mar 21 11:58:48 2015 moran-_d
+** Last update Sat Mar 21 13:18:59 2015 moran-_d
 */
 
+#include <inttypes.h>
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>
@@ -54,6 +55,8 @@ int elcrypt(elc *elc, int turn)
   uint64_t block;
   int len;
 
+  printf("%" PRIu64 "\n", elc->skey);
+  printf("%" PRIu64 "\n", elc->key);
   memset(buf, 0, BBLOCK);
   while ((len = read(elc->fin, buf, BBLOCK)) == BBLOCK)
     {

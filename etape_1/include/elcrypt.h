@@ -5,7 +5,7 @@
 ** Login   <terran_j@epitech.net>
 **
 ** Started on  Fri Mar 20 21:06:36 2015 Julie Terranova
-** Last update Sat Mar 21 11:58:23 2015 moran-_d
+** Last update Sat Mar 21 12:45:55 2015 moran-_d
 */
 
 #ifndef ELCRYPT_H_
@@ -37,21 +37,21 @@ struct elc_s {
 /* Main */
 int main(int argc, char **argv);
 
-int crypt(char **av, elc opt);
+int crypt(char **av, elc *opt);
 
 /* Parse */
-elc *parse_args(char **argv); /* for each arg check if -X */
+elc *parse_args(char **argv);
 
 /* Block */
 uint64_t construct_block(unsigned char *buf);
 void deconstruct_block(uint64_t block, unsigned char *buf);
 
 /* Elcrypt */
-int elcrypt(elc *elc, int turn); /* for each block, do feistel */
+int elcrypt(elc *elc, int turn);
+uint64_t parity_bits_key(uint64_t key);
 
 /* Feistel */
-uint64_t feistel(elc *elc, uint64_t block, int turn);	/* while i < TURNS do feistel */
-								/* return block */
-uint32_t feistel_key(uint64_t key, uint32_t block, int turn);	/* get secondary key */
+uint64_t feistel(elc *elc, uint64_t block, int turn);
+uint32_t feistel_key(uint64_t key, uint32_t block, int turn);
 
 #endif
