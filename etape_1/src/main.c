@@ -5,7 +5,7 @@
 ** Login   <terran_j@epitech.net>
 **
 ** Started on  Fri Mar 20 21:05:57 2015 Julie Terranova
-** Last update Sat Mar 21 17:14:01 2015 Julie Terranova
+** Last update Sat Mar 21 19:20:44 2015 Julie Terranova
 */
 
 #include <inttypes.h>
@@ -16,7 +16,6 @@
 #include <fcntl.h>
 #include <stdio.h>
 #include <string.h>
-#include <math.h>
 #include "elcrypt.h"
 
 int is_decimal(char *nb)
