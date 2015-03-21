@@ -5,7 +5,7 @@
 ** Login   <terran_j@epitech.net>
 **
 ** Started on  Fri Mar 20 21:06:36 2015 Julie Terranova
-** Last update Sat Mar 21 12:45:55 2015 moran-_d
+** Last update Sat Mar 21 13:34:35 2015 moran-_d
 */
 
 #ifndef ELCRYPT_H_
@@ -27,8 +27,8 @@
 typedef struct elc_s elc;
 
 struct elc_s {
-  int64_t key;
-  int64_t skey;
+  uint64_t key;
+  uint64_t skey;
   int fin;
   int fout;
   int mode;
