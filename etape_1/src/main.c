@@ -5,7 +5,7 @@
 ** Login   <terran_j@epitech.net>
 **
 ** Started on  Fri Mar 20 21:05:57 2015 Julie Terranova
-** Last update Sat Mar 21 16:18:46 2015 Julie Terranova
+** Last update Sat Mar 21 17:14:01 2015 Julie Terranova
 */
 
 #include <inttypes.h>
@@ -41,7 +41,7 @@ uint64_t get_key(char *av)
   ret = 0;
   if (strlen(av) >= 2 && av[0] == '0' && av[1] == 'x')
     sscanf(av, "%lx", &ret);
-  else if (strlen(av) >= 2 && av[0] == '0' && av[1] == 'b')
+  else if (strlen(av) >= 1 && av[0] == '%')
     {
       av += 2;
       i = 0;
