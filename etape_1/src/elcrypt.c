@@ -5,7 +5,7 @@
 ** Login   <moran-_d@epitech.net>
 **
 ** Started on  Fri Mar 20 22:06:10 2015 moran-_d
-** Last update Sat Mar 21 13:18:59 2015 moran-_d
+** Last update Sat Mar 21 16:25:34 2015 moran-_d
 */
 
 #include <inttypes.h>
@@ -17,7 +17,6 @@
 uint64_t parity_bits_key(uint64_t key)
 {
   uint64_t ret;
-  char tmp;
   int i;
 
   ret = 0;
@@ -25,56 +24,85 @@ uint64_t parity_bits_key(uint64_t key)
   while (--i >= 0)
     {
       key = key >> 1;
-      tmp = (char)key;
-      ret = (ret << 7) + tmp;
+      ret = (ret << 7) + ((unsigned char)key & 127);
       key = key >> 7;
     }
+  printf("retFinal = %"PRIu64"\n", ret);
   return (ret);
 }
 
-int sub_padding(unsigned char *buf)
-{
-  return (BBLOCK - (int)buf[7]);
-}
-
-int add_padding(unsigned char *buf, int len)
-{
-  int nb;
-
-  nb = len;
-  if (len == 0)
-    len = 8;
-  while (--len >= 0)
-    buf[len] = nb;
-  return (BBLOCK);
-}
-
-int elcrypt(elc *elc, int turn)
+int encrypt(elc *elc, int turn)
 {
   unsigned char buf[8];
   uint64_t block;
   int len;
 
-  printf("%" PRIu64 "\n", elc->skey);
-  printf("%" PRIu64 "\n", elc->key);
   memset(buf, 0, BBLOCK);
   while ((len = read(elc->fin, buf, BBLOCK)) == BBLOCK)
     {
+      printf("ERead: %.8s\n", buf);
       block = construct_block(buf);
-      block = feistel(elc, block, turn);
+      block = feistel_enc(elc, block, turn);
       deconstruct_block(block, buf);
+      printf("EWrite: %.8s\n", buf);
       write(elc->fout, buf, BBLOCK);
       memset(buf, 0, BBLOCK);
     }
   if (len < 0)
     return (printf("Error during reading\n"));
-  if (elc->mode == ENCRYPT)
-    len = add_padding(buf, len);
+  printf("EFRead: %.8s\n", buf);
+  len = add_padding(buf, 8 - len);
   block = construct_block(buf);
-  block = feistel(elc, block, turn);
+  block = feistel_enc(elc, block, turn);
   deconstruct_block(block, buf);
-  if (elc->mode == DECRYPT)
-    len = sub_padding(buf);
+  printf("EFWrite: %.8s\n", buf);
   write(elc->fout, buf, len);
+  return (0);
+}
+
+int decrypt(elc *elc, int turn)
+{
+  unsigned char buf[8];
+  uint64_t block;
+  int len;
+
+  if ((len = read(elc->fin, buf, BBLOCK)) == BBLOCK)
+    while (len == BBLOCK)
+      {
+	printf("DRead: %.8s\n", buf);
+	block = construct_block(buf);
+	block = feistel_dec(elc, block, turn);
+	deconstruct_block(block, buf);
+	printf("DWrite: %.8s\n", buf);
+	write(elc->fout, buf, BBLOCK);
+	len = read(elc->fin, buf, BBLOCK);
+	printf("LEN = %d\n", len);
+      }
+  if (len != 0)
+    return (printf("Error during reading\n"));
+  printf("DFRead: %.8s\n", buf);
+  block = construct_block(buf);
+  block = feistel_dec(elc, block, turn);
+  deconstruct_block(block, buf);
+  len = sub_padding(buf);
+  if (len < 0 || len > 8)
+    {
+      int i = -1;
+      while (++i < 8)
+	printf("Charac %d = %d\n", i, (int)buf[i]);
+      return (printf("Something went wrong, len = %d\n", len));
+    }
+  printf("DFWrite: %*.*s -- len %d\n", len, len, buf, len);
+  write(elc->fout, buf, len);
+  return (0);
+}
+
+int elcrypt(elc *elc, int turn)
+{
+  if (elc->mode == ENCRYPT)
+    return (encrypt(elc, turn));
+  else if (elc->mode == DECRYPT)
+    return (decrypt(elc, turn));
+  printf("Wrong mode !!!\n");
   return (0);
 }

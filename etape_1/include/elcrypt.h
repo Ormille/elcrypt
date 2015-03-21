@@ -5,7 +5,7 @@
 ** Login   <terran_j@epitech.net>
 **
 ** Started on  Fri Mar 20 21:06:36 2015 Julie Terranova
-** Last update Sat Mar 21 13:34:35 2015 moran-_d
+** Last update Sat Mar 21 16:22:30 2015 moran-_d
 */
 
 #ifndef ELCRYPT_H_
@@ -45,13 +45,16 @@ elc *parse_args(char **argv);
 /* Block */
 uint64_t construct_block(unsigned char *buf);
 void deconstruct_block(uint64_t block, unsigned char *buf);
+int add_padding(unsigned char *buf, int len);
+int sub_padding(unsigned char *buf);
 
 /* Elcrypt */
 int elcrypt(elc *elc, int turn);
 uint64_t parity_bits_key(uint64_t key);
 
 /* Feistel */
-uint64_t feistel(elc *elc, uint64_t block, int turn);
+uint64_t feistel_enc(elc *elc, uint64_t block, int turn);
+uint64_t feistel_dec(elc *elc, uint64_t block, int turn);
 uint32_t feistel_key(uint64_t key, uint32_t block, int turn);
 
 #endif
