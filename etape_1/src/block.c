@@ -5,7 +5,7 @@
 ** Login   <moran-_d@epitech.net>
 ** 
 ** Started on  Sat Mar 21 10:24:00 2015 moran-_d
-** Last update Sat Mar 21 16:29:02 2015 moran-_d
+** Last update Sat Mar 21 18:45:50 2015 moran-_d
 */
 
 #include <stdio.h>
@@ -49,7 +49,6 @@ int add_padding(unsigned char *buf, int len)
   nb = len;
   while (--len >= 0)
     {
-      printf("buf[%d] = %d\n", 7 - len, nb);
       buf[7 - len] = nb;
     }
   return (BBLOCK);

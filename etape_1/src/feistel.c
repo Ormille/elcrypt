@@ -5,9 +5,10 @@
 ** Login   <moran-_d@epitech.net>
 ** 
 ** Started on  Fri Mar 20 22:22:03 2015 moran-_d
-** Last update Sat Mar 21 16:22:01 2015 moran-_d
+** Last update Sat Mar 21 19:38:05 2015 moran-_d
 */
 
+#include <inttypes.h>
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>
@@ -26,6 +27,7 @@ uint32_t feistel_key(uint64_t key, uint32_t block, int turn)
       second = second & 0x00FFFFFFFFFFFFFF;
       --turn;
     }
+  /*  printf("sec = %"PRIu32"\n", (uint32_t)second ^ block); */
   return (((uint32_t)second) ^ block);
 }
 
@@ -38,8 +40,8 @@ uint64_t feistel_enc(elc *elc, uint64_t block, int turn)
   int i;
 
   i = -1;
-  left = block >> 32;
-  right = block;
+  left = (uint32_t)(block >> 32);
+  right = (uint32_t)block;
   while (++i < TURNS)
     {
       t = abs(turn - i);
@@ -62,17 +64,17 @@ uint64_t feistel_dec(elc *elc, uint64_t block, int turn)
   int i;
 
   i = -1;
-  right = block >> 32;
-  left = block;
+  left = block >> 32;
+  right = block;
   while (++i < TURNS)
     {
       t = abs(turn - i);
-      tmp = feistel_key(elc->skey, right, t);
-      tmp = tmp ^ left;
-      left = right;
-      right = tmp;
+      tmp = feistel_key(elc->skey, left, t);
+      tmp = tmp ^ right;
+      right = left;
+      left = tmp;
     }
-  block = right;
-  block = (block << 32) + left;
+  block = left;
+  block = (block << 32) + right;
   return (block);
 }
