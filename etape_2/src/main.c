@@ -5,7 +5,7 @@
 ** Login   <terran_j@epitech.net>
 **
 ** Started on  Fri Mar 20 21:05:57 2015 Julie Terranova
-** Last update Sat Mar 21 19:51:46 2015 Julie Terranova
+** Last update Sat Mar 21 20:50:07 2015 Julie Terranova
 */
 
 #include "elnetcat.h"
@@ -47,7 +47,7 @@ int	server(char **av)
   i = (mask = 0);
   while (av[i])
     {
-      if (strcmp("-k", av[i]) == 0 && i < 5)
+      if (strcmp("-k", av[i]) == 0 && i < 4)
 	{
 	  server.key = recup_key(av[i + 1]);
 	  if ((mask & 1) == 0)
@@ -63,7 +63,7 @@ int	server(char **av)
     }
   if (mask != 3)
     return (printf("Server: Syntax error\n"));
-  continue_server(server);
+  init_server(server);
   return (0);
 }
 
@@ -76,7 +76,7 @@ int	client(char **av)
   i = (mask = 0);
   while (av[i])
     {
-      if (strcmp("-k", av[i]) == 0 && i < 5)
+      if (strcmp("-k", av[i]) == 0 && i < 4)
 	{
 	  client.key = recup_key(av[i + 1]);
 	  if ((mask & 1) == 0)
@@ -92,7 +92,7 @@ int	client(char **av)
     }
   if (mask != 3)
     return (printf("Client: Syntax error\n"));
-  continue_client(client);
+  init_client(client);
   return (0);
 }
 
