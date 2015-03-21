@@ -5,7 +5,7 @@
 ** Login   <terran_j@epitech.net>
 **
 ** Started on  Fri Mar 20 21:05:57 2015 Julie Terranova
-** Last update Sat Mar 21 12:28:34 2015 Julie Terranova
+** Last update Sat Mar 21 13:31:52 2015 Julie Terranova
 */
 
 #include <inttypes.h>
@@ -16,6 +16,15 @@
 #include <stdio.h>
 #include <string.h>
 #include "elcrypt.h"
+
+uint64_t get_key(char *av)
+{
+  uint64_t ret;
+
+  sscanf(av, "%" SCNu64, &ret);
+
+  return (ret);
+}
 
 int	in_loop(char **av, elc *opt, char **src, char **dest)
 {
@@ -35,8 +44,7 @@ int	in_loop(char **av, elc *opt, char **src, char **dest)
 	return (printf("-o already declared\n"));
       if ((mk & 4) == 0 && strcmp("-k", av[i]) == 0 && (mk += 4) >= 0)
 	{
-	  sscanf(av[i + 1], "%"SCNd64, &(opt->key));
-
+	  opt->key = get_key(av[i + 1]);
 	}
       else if ((mk & 4) == 1 && strcmp("-k", av[i]) == 0)
 	return (printf("-k already declared\n"));
