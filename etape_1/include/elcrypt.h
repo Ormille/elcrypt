@@ -5,7 +5,7 @@
 ** Login   <terran_j@epitech.net>
 **
 ** Started on  Fri Mar 20 21:06:36 2015 Julie Terranova
-** Last update Sat Mar 21 16:22:30 2015 moran-_d
+** Last update Sun Mar 22 00:38:09 2015 moran-_d
 */
 
 #ifndef ELCRYPT_H_
@@ -36,7 +36,7 @@ struct elc_s {
 
 /* Main */
 int main(int argc, char **argv);
-
+int is_decimal(char *nb);
 int crypt(char **av, elc *opt);
 
 /* Parse */

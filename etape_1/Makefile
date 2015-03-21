@@ -5,13 +5,14 @@
 ## Login   <terran_j@epitech.net>
 ##
 ## Started on  Fri Mar 20 20:46:16 2015 Julie Terranova
-## Last update Sat Mar 21 14:53:37 2015 Julie Terranova
+## Last update Sun Mar 22 00:38:20 2015 moran-_d
 ##
 
 NAME	= elcrypt
 
 SRC	= src/main.c \
 	src/block.c \
+	src/div.c \
 	src/elcrypt.c \
 	src/feistel.c \
 

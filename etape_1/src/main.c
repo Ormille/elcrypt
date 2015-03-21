@@ -5,7 +5,7 @@
 ** Login   <terran_j@epitech.net>
 **
 ** Started on  Fri Mar 20 21:05:57 2015 Julie Terranova
-** Last update Sat Mar 21 19:20:44 2015 Julie Terranova
+** Last update Sun Mar 22 00:37:49 2015 moran-_d
 */
 
 #include <inttypes.h>
@@ -17,20 +17,6 @@
 #include <stdio.h>
 #include <string.h>
 #include "elcrypt.h"
-
-int is_decimal(char *nb)
-{
-  int i;
-
-  i = 0;
-  while (nb[i])
-    {
-      if (!(nb[i] >= '0' && nb[i] <= '9'))
-	return (-1);
-      i++;
-    }
-  return (0);
-}
 
 uint64_t get_key(char *av)
 {
