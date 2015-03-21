@@ -5,7 +5,7 @@
 ** Login   <moran-_d@epitech.net>
 ** 
 ** Started on  Fri Mar 20 22:22:03 2015 moran-_d
-** Last update Sat Mar 21 10:16:51 2015 moran-_d
+** Last update Sat Mar 21 12:03:06 2015 moran-_d
 */
 
 #include <string.h>
@@ -15,10 +15,17 @@
 
 uint32_t feistel_key(uint64_t key, uint32_t block, int turn)
 {
-  key = key;
-  block = block;
-  turn = turn;
-  return (0);
+  uint64_t second;
+  
+  second = key;
+  while (turn > 0)
+    {
+      second = second << 4;
+      second += ((second & 0x0F00000000000000) >> 7 * 8);
+      second = second & 0x00FFFFFFFFFFFFFF;
+      --turn;
+    }
+  return (((uint32_t)second) ^ block);
 }
 
 uint64_t feistel(elc *elc, uint64_t block, int turn)
@@ -35,7 +42,7 @@ uint64_t feistel(elc *elc, uint64_t block, int turn)
   while (++i < TURNS)
     {
       t = abs(turn - i);
-      tmp = feistel_key(elc->key, right, t);
+      tmp = feistel_key(elc->skey, right, t);
       tmp = tmp ^ left;
       left = right;
       right = tmp;

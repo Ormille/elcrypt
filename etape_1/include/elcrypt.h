@@ -5,7 +5,7 @@
 ** Login   <terran_j@epitech.net>
 **
 ** Started on  Fri Mar 20 21:06:36 2015 Julie Terranova
-** Last update Sat Mar 21 10:34:29 2015 moran-_d
+** Last update Sat Mar 21 11:58:23 2015 moran-_d
 */
 
 #ifndef ELCRYPT_H_
@@ -28,6 +28,7 @@ typedef struct elc_s elc;
 
 struct elc_s {
   int64_t key;
+  int64_t skey;
   int fin;
   int fout;
   int mode;
@@ -47,7 +48,6 @@ void deconstruct_block(uint64_t block, unsigned char *buf);
 
 /* Elcrypt */
 int elcrypt(elc *elc, int turn); /* for each block, do feistel */
-uint64_t add_padding(unsigned char *buf, int len);
 
 /* Feistel */
 uint64_t feistel(elc *elc, uint64_t block, int turn);	/* while i < TURNS do feistel */

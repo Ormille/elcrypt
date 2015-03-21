@@ -5,7 +5,7 @@
 ** Login   <moran-_d@epitech.net>
 **
 ** Started on  Fri Mar 20 22:06:10 2015 moran-_d
-** Last update Sat Mar 21 10:35:00 2015 moran-_d
+** Last update Sat Mar 21 11:58:48 2015 moran-_d
 */
 
 #include <stdio.h>
@@ -13,11 +13,39 @@
 #include <unistd.h>
 #include "elcrypt.h"
 
-uint64_t add_padding(unsigned char *buf, int len)
+uint64_t parity_bits_key(uint64_t key)
 {
-  buf = buf;
-  len = len;
-  return (0);
+  uint64_t ret;
+  char tmp;
+  int i;
+
+  ret = 0;
+  i = BBLOCK;
+  while (--i >= 0)
+    {
+      key = key >> 1;
+      tmp = (char)key;
+      ret = (ret << 7) + tmp;
+      key = key >> 7;
+    }
+  return (ret);
+}
+
+int sub_padding(unsigned char *buf)
+{
+  return (BBLOCK - (int)buf[7]);
+}
+
+int add_padding(unsigned char *buf, int len)
+{
+  int nb;
+
+  nb = len;
+  if (len == 0)
+    len = 8;
+  while (--len >= 0)
+    buf[len] = nb;
+  return (BBLOCK);
 }
 
 int elcrypt(elc *elc, int turn)
@@ -37,10 +65,13 @@ int elcrypt(elc *elc, int turn)
     }
   if (len < 0)
     return (printf("Error during reading\n"));
-
-  block = add_padding(buf, len);
+  if (elc->mode == ENCRYPT)
+    len = add_padding(buf, len);
+  block = construct_block(buf);
   block = feistel(elc, block, turn);
   deconstruct_block(block, buf);
-  write(elc->fout, buf, BBLOCK);
+  if (elc->mode == DECRYPT)
+    len = sub_padding(buf);
+  write(elc->fout, buf, len);
   return (0);
 }
