@@ -5,7 +5,7 @@
 ** Login   <terran_j@epitech.net>
 **
 ** Started on  Fri Mar 20 21:05:57 2015 Julie Terranova
-** Last update Fri Mar 20 22:46:38 2015 Julie Terranova
+** Last update Sat Mar 21 12:28:34 2015 Julie Terranova
 */
 
 #include <inttypes.h>
@@ -17,73 +17,86 @@
 #include <string.h>
 #include "elcrypt.h"
 
-int	crypt(char **av, elc opt)
+int	in_loop(char **av, elc *opt, char **src, char **dest)
 {
-  int mask;
   int i;
+  int mk;
 
-  i = (mask = 0);
-  while (av[i] && i != 9)
+  i = (mk = 0) - 1;
+  while (av[++i] && i != 8)
     {
-      if ((mask & 1) == 0 && strcmp("-f", av[i]) == 0)
-	{
-	  if ((opt.fin = open(av[i + 1], O_RDONLY)) == -1)
-	    return (printf("Error with source file\n"));
-	  mask = mask & 1;
-	}
-      else if ((mask & 1) == 1)
+      if ((mk & 1) == 0 && strcmp("-f", av[i]) == 0 && (mk += 1) >= 0)
+	*src = av[i + 1];
+      else if ((mk & 1) == 1 && strcmp("-f", av[i]) == 0)
 	return (printf("-f already declared\n"));
-      if ((mask & 2) == 0 && strcmp("-o", av[i]) == 0)
-	{
-	  if ((opt.fout = open(av[i + 1], O_CREAT | O_EXCL | O_RDWR, 0644))
-	      == -1)
-	    return (printf("Error with destination file\n"));
-	  mask = mask & 2;
-	}
-      else if ((mask & 2) == 1)
+      if ((mk & 2) == 0 && strcmp("-o", av[i]) == 0 && (mk += 2) >= 0)
+	*dest = av[i + 1];
+      else if ((mk & 2) == 1 && strcmp("-o", av[i]) == 0)
 	return (printf("-o already declared\n"));
-      if ((mask & 4) == 0 && strcmp("-k", av[i]) == 0)
+      if ((mk & 4) == 0 && strcmp("-k", av[i]) == 0 && (mk += 4) >= 0)
 	{
-	  sscanf(av[i + 1], "%"SCNd64, &(opt.key));
-	  mask = mask & 4;
+	  sscanf(av[i + 1], "%"SCNd64, &(opt->key));
+
 	}
-      else if ((mask & 4) == 1)
+      else if ((mk & 4) == 1 && strcmp("-k", av[i]) == 0)
 	return (printf("-k already declared\n"));
-      i++;
     }
-  elcrypt(&opt, opt.mode);
+  if (mk != 7)
+    return (printf("Wrong argument\n"));
+  return (0);
+}
+
+int	crypt(char **av, elc *opt)
+{
+  char *src;
+  char *dest;
+
+  if (in_loop(av, opt, &src, &dest) != 0)
+    return (-1);
+  if ((opt->fin = open(src, O_RDONLY)) == -1)
+    return (printf("Error with source file\n"));
+  if ((opt->fout = open(dest, O_CREAT | O_EXCL | O_RDWR, 0644))
+      == -1)
+    return (printf("Error with destination file\n"));
+  elcrypt(opt, opt->mode);
   return (0);
 }
 
 void	verify_arguments(char **av)
 {
   int i;
+  int arg;
   elc opt;
 
-  i = 0;
-  while (av[i])
+  i = -1;
+  arg = 0;
+  while (av[++i])
     {
       if (strcmp("-d", av[i]) == 0)
 	{
 	  opt.mode = DECRYPT;
-	  crypt(av, opt);
-	  break;
+	  crypt(av, &opt);
+	  arg += 1;
+	  return;
 	}
       if (strcmp("-e", av[i]) == 0)
 	{
 	  opt.mode = ENCRYPT;
-	  crypt(av, opt);
-	  break;
+	  crypt(av, &opt);
+	  arg += 1;
+	  return;
 	}
-      i++;
     }
+  if (arg == 0)
+    printf("Error: Missing -d or -e\n");
 }
 
 int	main(int ac, char **av)
 {
-  if (ac == 9)
+  if (ac == 8)
     verify_arguments(av);
   else
-    printf("Usage: ./elcrypt [-d | -e] [-f src_file] [-o dest_file] [-k key]\n");
+    printf("Usage: ./elcrypt [-d | -e] [-f src_file] [-o dest_file] %s\n",
+	   "[-k key]");
   return (0);
 }

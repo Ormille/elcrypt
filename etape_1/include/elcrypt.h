@@ -5,7 +5,7 @@
 ** Login   <terran_j@epitech.net>
 **
 ** Started on  Fri Mar 20 21:06:36 2015 Julie Terranova
-** Last update Sat Mar 21 10:34:29 2015 moran-_d
+** Last update Sat Mar 21 11:52:32 2015 Julie Terranova
 */
 
 #ifndef ELCRYPT_H_
@@ -36,7 +36,7 @@ struct elc_s {
 /* Main */
 int main(int argc, char **argv);
 
-int crypt(char **av, elc opt);
+int crypt(char **av, elc *opt);
 
 /* Parse */
 elc *parse_args(char **argv); /* for each arg check if -X */
