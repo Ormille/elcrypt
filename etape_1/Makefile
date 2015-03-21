@@ -5,7 +5,7 @@
 ## Login   <terran_j@epitech.net>
 ##
 ## Started on  Fri Mar 20 20:46:16 2015 Julie Terranova
-## Last update Sat Mar 21 12:15:12 2015 Julie Terranova
+## Last update Sat Mar 21 14:53:37 2015 Julie Terranova
 ##
 
 NAME	= elcrypt
@@ -19,7 +19,7 @@ OBJ	= $(SRC:.c=.o)
 
 CFLAGS	= -Wall -Wextra -Werror -ansi -pedantic -I include/
 
-LDFLAGS= -lX11
+LDFLAGS= -lX11 -lm
 
 all:    $(NAME)
 

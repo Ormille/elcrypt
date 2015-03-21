@@ -5,24 +5,59 @@
 ** Login   <terran_j@epitech.net>
 **
 ** Started on  Fri Mar 20 21:05:57 2015 Julie Terranova
-** Last update Sat Mar 21 13:34:28 2015 moran-_d
+** Last update Sat Mar 21 16:18:46 2015 Julie Terranova
 */
 
 #include <inttypes.h>
 #include <stdlib.h>
 #include <sys/types.h>
 #include <sys/stat.h>
+#include <string.h>
 #include <fcntl.h>
 #include <stdio.h>
 #include <string.h>
+#include <math.h>
 #include "elcrypt.h"
+
+int is_decimal(char *nb)
+{
+  int i;
+
+  i = 0;
+  while (nb[i])
+    {
+      if (!(nb[i] >= '0' && nb[i] <= '9'))
+	return (-1);
+      i++;
+    }
+  return (0);
+}
 
 uint64_t get_key(char *av)
 {
   uint64_t ret;
+  size_t i;
 
-  sscanf(av, "%" SCNu64, &ret);
-
+  ret = 0;
+  if (strlen(av) >= 2 && av[0] == '0' && av[1] == 'x')
+    sscanf(av, "%lx", &ret);
+  else if (strlen(av) >= 2 && av[0] == '0' && av[1] == 'b')
+    {
+      av += 2;
+      i = 0;
+      while (i < strlen(av))
+	{
+	  if (av[i] == '1')
+	    ret = ret * 2 + 1;
+	  else if (av[i] == '0')
+	    ret *= 2;
+	  i++;
+	}
+    }
+  else if (is_decimal(av) == 0)
+    sscanf(av, "%" SCNu64, &ret);
+  else
+    ret = construct_block((unsigned char *)av);
   return (ret);
 }
 
